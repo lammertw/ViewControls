@@ -14,6 +14,7 @@
 		2F1435211BC7F02D00580339 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F14351F1BC7F02D00580339 /* LaunchScreen.storyboard */; };
 		2F14352C1BC7F02D00580339 /* ViewControlsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F14352B1BC7F02D00580339 /* ViewControlsTests.swift */; };
 		2F1435371BC7F02D00580339 /* ViewControlsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1435361BC7F02D00580339 /* ViewControlsUITests.swift */; };
+		2F1435451BC80E4900580339 /* TripPresentationControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1435441BC80E4900580339 /* TripPresentationControl.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		2F1435321BC7F02D00580339 /* ViewControlsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ViewControlsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F1435361BC7F02D00580339 /* ViewControlsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControlsUITests.swift; sourceTree = "<group>"; };
 		2F1435381BC7F02D00580339 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2F1435441BC80E4900580339 /* TripPresentationControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripPresentationControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				2F14351D1BC7F02D00580339 /* Assets.xcassets */,
 				2F14351F1BC7F02D00580339 /* LaunchScreen.storyboard */,
 				2F1435221BC7F02D00580339 /* Info.plist */,
+				2F1435441BC80E4900580339 /* TripPresentationControl.swift */,
 			);
 			path = ViewControls;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F1435451BC80E4900580339 /* TripPresentationControl.swift in Sources */,
 				2F1435191BC7F02D00580339 /* ViewController.swift in Sources */,
 				2F1435171BC7F02D00580339 /* AppDelegate.swift in Sources */,
 			);

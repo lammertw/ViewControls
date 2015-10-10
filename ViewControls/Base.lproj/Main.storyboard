@@ -96,9 +96,15 @@
                         <outlet property="delayLabel" destination="w9b-hp-QPG" id="KiT-gr-GjW"/>
                         <outlet property="departureTimeLabel" destination="kip-q7-gKg" id="vwE-0U-8RI"/>
                         <outlet property="durationLabel" destination="uhX-uO-1f9" id="sgp-1Y-88N"/>
+                        <outlet property="tripPresentationControl" destination="PBt-5q-XOj" id="lHM-1k-ubw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <customObject id="PBt-5q-XOj" customClass="TripPresentationControl" customModule="ViewControls" customModuleProvider="target">
+                    <connections>
+                        <outlet property="departureLabel" destination="X6Z-0R-Zv3" id="1dJ-ep-7vh"/>
+                    </connections>
+                </customObject>
             </objects>
         </scene>
     </scenes>
