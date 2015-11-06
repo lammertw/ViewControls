@@ -12,12 +12,19 @@ class ViewController: UIViewController {
 
     @IBOutlet var tripPresentationControl: TripPresentationControl!
 
-    let trip = Trip(departure: NSDate(timeIntervalSince1970: 1444396193), arrival: NSDate(timeIntervalSince1970: 1444397193), actualDeparture: NSDate(timeIntervalSince1970: 1444396493))
+    let tripModel = TripViewViewModel(Trip(departure: NSDate(timeIntervalSince1970: 1444396193), arrival: NSDate(timeIntervalSince1970: 1444397193), actualDeparture: NSDate(timeIntervalSince1970: 1444396493)))
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tripPresentationControl.trip = trip
+        tripPresentationControl.tripModel = tripModel
     }
 
+    @IBAction func increaseDelay(sender: AnyObject) {
+        tripModel.changeActualDeparture(60)
+    }
+
+    @IBAction func decreaseDelay(sender: AnyObject) {
+        tripModel.changeActualDeparture(-60)
+    }
 }

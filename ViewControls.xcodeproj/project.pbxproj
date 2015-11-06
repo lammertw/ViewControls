@@ -15,6 +15,7 @@
 		2F14352C1BC7F02D00580339 /* ViewControlsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F14352B1BC7F02D00580339 /* ViewControlsTests.swift */; };
 		2F1435371BC7F02D00580339 /* ViewControlsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1435361BC7F02D00580339 /* ViewControlsUITests.swift */; };
 		2F1435451BC80E4900580339 /* TripPresentationControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1435441BC80E4900580339 /* TripPresentationControl.swift */; settings = {ASSET_TAGS = (); }; };
+		2F1435471BC91E5000580339 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1435461BC91E5000580339 /* Dynamic.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		2F1435361BC7F02D00580339 /* ViewControlsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControlsUITests.swift; sourceTree = "<group>"; };
 		2F1435381BC7F02D00580339 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F1435441BC80E4900580339 /* TripPresentationControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripPresentationControl.swift; sourceTree = "<group>"; };
+		2F1435461BC91E5000580339 /* Dynamic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				2F1435161BC7F02D00580339 /* AppDelegate.swift */,
+				2F1435461BC91E5000580339 /* Dynamic.swift */,
 				2F1435181BC7F02D00580339 /* ViewController.swift */,
 				2F14351A1BC7F02D00580339 /* Main.storyboard */,
 				2F14351D1BC7F02D00580339 /* Assets.xcassets */,
@@ -259,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F1435451BC80E4900580339 /* TripPresentationControl.swift in Sources */,
+				2F1435471BC91E5000580339 /* Dynamic.swift in Sources */,
 				2F1435191BC7F02D00580339 /* ViewController.swift in Sources */,
 				2F1435171BC7F02D00580339 /* AppDelegate.swift in Sources */,
 			);

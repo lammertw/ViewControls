@@ -17,36 +17,39 @@ class TripPresentationControl: NSObject {
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var delayLabel: UILabel!
 
-    var trip: Trip! {
+    var tripModel: TripViewViewModel! {
         didSet {
-            dateLabel.text = NSDateFormatter.localizedStringFromDate(trip.departure, dateStyle: .ShortStyle, timeStyle: .NoStyle)
-            departureTimeLabel.text = NSDateFormatter.localizedStringFromDate(trip.departure, dateStyle: .NoStyle, timeStyle: .ShortStyle)
-            arrivalTimeLabel.text  = NSDateFormatter.localizedStringFromDate(trip.arrival, dateStyle: .NoStyle, timeStyle: .ShortStyle)
+            dateLabel.text = tripModel.date
+            departureTimeLabel.text = tripModel.departure
+            arrivalTimeLabel.text  = tripModel.arrival
+            durationLabel.text = tripModel.arrival
 
-            let durationFormatter = NSDateComponentsFormatter()
-            durationFormatter.allowedUnits = [.Hour, .Minute]
-            durationFormatter.unitsStyle = .Short
-            durationLabel.text = durationFormatter.stringFromTimeInterval(trip.duration)!
+            tripModel.delay.bindAndFire { [unowned self] in
+                self.delayLabel.text = $0
+            }
 
-            delayLabel.hidden = !trip.delayed
-            if trip.delayed {
-                durationFormatter.unitsStyle = .Full
-                delayLabel.text = String.localizedStringWithFormat(NSLocalizedString("%@ delay", comment: "Show the delay"), durationFormatter.stringFromTimeInterval(trip.delay)!)
-                departureTimeLabel.textColor = .redColor()
+            tripModel.delayed.bindAndFire { [unowned self] delayed in
+                self.delayLabel.hidden = !delayed
+                self.departureTimeLabel.textColor = delayed ? .redColor() : UIColor(red: 0, green: 0, blue: 0.4, alpha: 1.0)
             }
         }
     }
 }
 
 
-class Trip {
+struct Trip {
 
     let departure: NSDate
     let arrival: NSDate
-    let actualDeparture: NSDate
-    let delay: NSTimeInterval
-    let delayed: Bool
     let duration: NSTimeInterval
+
+    var actualDeparture: NSDate
+    var delay: NSTimeInterval {
+        return self.actualDeparture.timeIntervalSinceDate(self.departure)
+    }
+    var delayed: Bool {
+        return delay > 0
+    }
 
     init(departure: NSDate, arrival: NSDate, actualDeparture: NSDate? = nil) {
         self.departure = departure
@@ -55,8 +58,6 @@ class Trip {
 
         // calculations
         duration = self.arrival.timeIntervalSinceDate(self.departure)
-        delay = self.actualDeparture.timeIntervalSinceDate(self.departure)
-        delayed = delay > 0
     }
 }
 
@@ -66,28 +67,55 @@ class TripViewViewModel {
     let departure: String
     let arrival: String
     let duration: String
-    let delay: String?
-    let delayHidden: Bool
-    let departureTimeColor: UIColor
+
+    private static let durationShortFormatter: NSDateComponentsFormatter = {
+        let durationFormatter = NSDateComponentsFormatter()
+        durationFormatter.allowedUnits = [.Hour, .Minute]
+        durationFormatter.unitsStyle = .Short
+        return durationFormatter
+        }()
+
+    private static let durationFullFormatter: NSDateComponentsFormatter = {
+        let durationFormatter = NSDateComponentsFormatter()
+        durationFormatter.allowedUnits = [.Hour, .Minute]
+        durationFormatter.unitsStyle = .Full
+        return durationFormatter
+        }()
+
+    let delay: Dynamic<String?>
+    let delayed: Dynamic<Bool>
+
+    var trip: Trip
 
     init(_ trip: Trip) {
+        self.trip = trip
+
         date = NSDateFormatter.localizedStringFromDate(trip.departure, dateStyle: .ShortStyle, timeStyle: .NoStyle)
         departure = NSDateFormatter.localizedStringFromDate(trip.departure, dateStyle: .NoStyle, timeStyle: .ShortStyle)
         arrival = NSDateFormatter.localizedStringFromDate(trip.arrival, dateStyle: .NoStyle, timeStyle: .ShortStyle)
 
-        let durationFormatter = NSDateComponentsFormatter()
-        durationFormatter.allowedUnits = [.Hour, .Minute]
-        durationFormatter.unitsStyle = .Short
-        duration = durationFormatter.stringFromTimeInterval(trip.duration)!
+        duration = TripViewViewModel.durationShortFormatter.stringFromTimeInterval(trip.duration)!
 
-        delayHidden = !trip.delayed
-        if trip.delayed {
-            durationFormatter.unitsStyle = .Full
-            delay = String.localizedStringWithFormat(NSLocalizedString("%@ delay", comment: "Show the delay"), durationFormatter.stringFromTimeInterval(trip.delay)!)
-            departureTimeColor = .redColor()
-        } else {
-            self.delay = nil
-            departureTimeColor = UIColor(red: 0, green: 0, blue: 0.4, alpha: 1)
-        }
+        delay = Dynamic(trip.delayString)
+        delayed = Dynamic(trip.delayed)
+    }
+
+    func changeActualDeparture(delta: NSTimeInterval) {
+        trip.actualDeparture = NSDate(timeInterval: delta, sinceDate: trip.actualDeparture)
+
+        tripUpdated()
+    }
+
+    func tripUpdated() {
+        self.delay.value = trip.delayString
+        self.delayed.value = trip.delayed
+    }
+
+}
+
+extension Trip {
+
+    private var delayString: String? {
+        return delayed ? String.localizedStringWithFormat(NSLocalizedString("%@ delay", comment: "Show the delay"), TripViewViewModel.durationFullFormatter.stringFromTimeInterval(delay)!) : nil
     }
 }
